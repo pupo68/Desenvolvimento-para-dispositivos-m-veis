@@ -1,0 +1,440 @@
+Logotipo PUCPR
+Desenvolvimento para dispositivos móveis
+UNIDADE 02
+Começando seus primeiros projetos com Kotlin: uma linguagem moderna com aspectos funcionais
+
+Olá, tudo bem? No universo da programação, existem muitas linguagens que podem ser utilizadas de acordo com o contexto de trabalho. Especificamente no contexto mobile, temos duas linguagens modernas que apresentam forma e conceitos similares: Swift e Kotlin. O Swift é a linguagens utilizada no desenvolvimento de aplicativos móveis para sistema iOS, e Kotlin, por sua vez, é utilizado no desenvolvimento de aplicativos móveis para sistema Android.
+
+©Alexander/Adobe Stock
+O nosso foco nesta disciplina é desenvolver aplicativos Android. Assim sendo, vamos trabalhar especificamente com a linguagem Kotlin. Ao longo desta unidade, vamos apresentar a sintaxe e os conceitos da linguagem, além de criarmos nosso primeiro projeto, mostrando todos os seus componentes estruturais.  
+
+Mãos à obra! 
+
+Videoaula: Nosso primeiro projeto Android!
+É chegada a hora de criarmos nosso primeiro projeto de desenvolvimento de aplicativo Android usando a linguagem Kotlin. Para o desenvolvimento de aplicativos, é fundamental conhecer muito bem como que funciona a estrutura dos projetos. Assim, neste vídeo, vamos apresentar os detalhes de um projeto no Android Studio, IDE de desenvolvimento de aplicativos Android.
+
+Além de entender a estrutura de um projeto, vamos dar os primeiros passos na programação fazendo uso da linguagem kotlin, interagindo com componentes simples do sistema. Mas, não se engane, por mais que sejam componentes simples, eles são a base da grande maioria das aplicações presentes no mercado de aplicativos móveis. Ou seja, realmente é aqui que tudo começa...
+
+Dica
+Para acompanhar o Professor durante a explicação e exercitar o projeto, disponibilizamos, a seguir, o arquivo zipado dos códigos.
+
+Aula02_Codigos_Videoaula.zip
+
+
+ 
+Kotlin: uma linguagem moderna com aspectos funcionais
+Quando começamos a desenvolver aplicativos para Android, logo ouvimos falar da linguagem Kotlin.
+Mas afinal de contas, o que ela é?
+
+Kotlin é uma linguagem de programação criada para facilitar a vida de quem desenvolve software.
+Ela é moderna, fácil de entender e foi feita pensando em tornar o código mais simples e menos sujeito a erros. Criado pela empresa JetBrains, famosa pelo desenvolvimento de ótimos IDEs (integrated development environment – ambiente de desenvolvimento integrado), em 2017 o foi anunciada pela Google com a linguagem oficial para desenvolvimento Android.
+
+Em termos de paradigma de programação, Kotlin é orientada a objetos, porém apresenta aspectos funcionais. Isso significa que a forma de programar com Kotlin é, primordialmente, usando orientação a objeto, mas ele fornece recursos funcionais, tais como: funções de alta ordem (funções que podem receber outras funções como parâmetro ou retornar funções), expressões lambda (formas curtas e diretas de escrever pequenas funções), operações encadeadas (funções como map, filter e reduce, que permitem transformar coleções de dados de maneira simples e elegante), entre outras.
+
+Sabendo o que é a linguagem, vamos tratar agora de sua sintaxe, a fim de atender aos conceitos da lógica inerentes a todas as linguagens de programação.
+
+Importante Kotlin > Disponível em: https://kotlinlang.org/
+Variáveis e tipos de dados
+A linguagem Kotlin é classificada como uma linguagem de tipagem estática e forte. É dita estática porque o tipo de dados que a variável aponta é conhecido antes da execução do programa, definido ao longo do código. É dita forte em função da linguagem não permitir a atribuição de um valor a uma variável com tipo diferente daquele com o qual ela foi inicializada.
+
+var idade: Int = 25
+idade = "vinte e cinco" // ❌ Erro! Kotlin não permite trocar Int por String
+Mesmo sendo de tipagem estática, o Kotlin tem um recurso moderno chamado inferência de tipos, que torna o código mais simples de escrever. Na prática, o compilador consegue descobrir automaticamente o tipo de uma variável pelo valor a ela atribuído.
+
+val nome = "Juliane"   // O Kotlin entende que é uma String
+val idade = 25         // O Kotlin entende que é um Int
+Como visto nos exemplos anteriores, a declaração de variáveis em Kotlin é feita a partir dos comandos var e val, que permitem declarar as variáveis como mutáveis (var) ou imutáveis (val).
+
+Em termos de tipos de dados, Kotlin apresenta alguns tipos básicos análogos a outras linguagens de programação:
+
+Números
+
+Os números são divididos em números inteiros e números de ponto flutuante. Os números inteiros apresentam 4 tipos de dados, de acordo com seu tamanho e valores mínimo e máximo: 
+
+Tipo
+
+Tamanho (bits)
+
+Valor mínimo
+
+Valor máximo
+
+Byte
+
+8
+
+-128
+
+127
+
+Short
+
+16
+
+-32.768
+
+32.767
+
+Int
+
+32
+
+-2.147.483.648 (-231)
+
+2.147.483.647 (231 - 1)
+
+Long
+
+64
+
+-9.223.372.036.854.775.808 (-263)
+
+9,223,372,036,854,775,807 (263 - 1)
+
+Exemplo de declaração de números inteiros:
+
+val one = 1 // Int
+val threeBillion = 3000000000 // Long
+val oneLong = 1L // Long
+val oneByte: Byte = 1
+Para os números inteiros, temos ainda a variação para tipos que não levam em consideração o sinal de seus valores, mantendo os mesmos tamanhos, mas usando apenas valor máximo de referência, sem valores negativos:
+
+Tipo
+
+Tamanho (bits)
+
+Valor mínimo
+
+Valor máximo
+
+Byte
+
+8
+
+0
+
+256
+
+Short
+
+16
+
+0
+
+65.535
+
+Int
+
+32
+
+0
+
+4.294.967.295 (232 - 1)
+
+Long
+
+64
+
+0
+
+18.446.744.073.709.551.615 (264 - 1)
+
+
+
+val b: UByte = 1u     // UByte
+val s: UShort = 1u    // UShort
+val l: ULong = 1u     // ULong
+val a1 = 42u          // UInt: o valor cabe em um UInt - Inferido
+val a = 1UL           // ULong
+Os números de ponto flutuante, que aceitam parte fracionária, se apresentam em dois tipos de dados:
+
+Tipo
+
+Tamanho (bits)
+
+Bits significantes
+
+Bits de expoente
+
+Dígitos decimais
+
+Float
+
+32
+
+24
+
+8
+
+6-7
+
+Double
+
+164
+
+53
+
+11
+
+15-16
+
+Exemplo de declaração de números de ponto flutuante:
+
+val e = 2.7182818284        // Double
+val eFloat = 2.7182818284f  // Float, actual value is 2.7182817
+Valores Booleanos (Lógicos)
+
+As variáveis de valores booleanos aceitam dois estados: true (verdadeiro) ou false (falso). Sobre estas variáveis podem ser aplicadas operações lógicas a partir dos operadores de disjunção (ou lógico ||), conjunção (e lógico &&) e negação (não lógico !).
+
+Exemplo de declaração e operações lógicas sobre variáveis booleanas:
+
+val myTrue: Boolean = true
+val myFalse: Boolean = false
+
+println(myTrue || myFalse)
+// true
+println(myTrue && myFalse)
+// false
+println(!myTrue)
+// false
+Os valores lógicos são obtidos também a partir de operações relacionais (>, <, >=, <=, ==, !=), como será visto nos fluxos de controle mais à frente.
+
+Char
+
+O tipo char tem tamanho unitário e permite armazenar um único caractere.
+
+val aChar: Char = 'a'
+print(aChar)
+// a
+String
+
+Uma variável do tipo string, como em outras linguagens, representa um texto. A atribuição de um texto para uma string é feita normalmente por uma sequência de caracteres entre aspas:
+
+val s = "Programando na PUCPR"
+Em Kotlin, uma string pode ser iterada, uma vez que é considerada como sendo uma lista de caracteres. Para isto usamos um laço for in:
+
+val s = "Programando na PUCPR"
+for (c in s) {
+    println(c)
+}
+Como resultado do fragmento de código apresentado, serão exibidos cada caractere do texto “Programando na PUCPR” gravado em s a cada linha do código. 
+
+Fluxo de controle
+O fluxo de controle do Kotlin tem funcionamento análogo a outras linguagens de programação, apresentando estruturas condicionais e de repetição bem definidas.
+
+Estruturas condicionais
+
+As estruturas condicionais permitem a partir da análise de expressões tomar decisões e realizar desvios dentro de códigos de programação. Kotlin apresenta duas estruturas condicionais: if e when.
+
+Expressão if
+
+A expressão if permite realizar desvios a partir da inclusão de análise de expressões condicionais colocadas entre parênteses. De acordo com o retorno lógico destas expressões condicionais ocorrem desvios dentro da aplicação. A expressão if mais simples apresenta um único bloco de desvios a ser executado caso a expressão resulte true. Também é possível a criação de um novo bloco de desvio que responde a um else, que será executado caso a expressão resulte false. Por fim, intercaladas entre if e else, podem ser utilizadas várias expressões else if para analisar outras condições de forma aninhada.
+
+Exemplo de expressão if simples:
+
+val idade: Int = 18
+if (idade >= 18)
+    print("Você pode fazer o teste de habilitação.")
+Saída:
+
+Você pode fazer o teste de habilitação.
+
+Neste exemplo, se a idade fosse menor que 18 não haveria qualquer retorno no console da aplicação.
+
+Exemplo de condicional com else:
+
+val idade: Int = 18
+if (idade >= 18)
+    print("Você pode fazer o teste de habilitação.")
+else
+    print("Você não pode ser legalmente habilitado.")
+Esse exemplo gera a mesma saída do anterior em função da condição. Entretanto, se o valor da variável idade fosse, por exemplo, 17 a saída deste fragmento de código seria a da linha 5.
+
+Exemplo adicionando else if:
+
+val idade: Int = 18
+if (idade < 12)
+    print("Você é uma criança.")
+else if (idade < 18)
+    print("Você é um adolescente.")
+else if (idade < 60)
+    print("Você é Adulto.")
+else
+    print("Você pertence ao grupo da melhor idade.")
+Nesse exemplo, caso uma condição seja falsa, a próxima em else if será analisada, e assim subsequentemente. Caso alguma condição retorne true, seu bloco de códigos é executado e a execução da aplicação é desviada para a próxima linha após o término do bloco if. Caso nenhuma das condições retornem true, o bloco else será executado.
+
+Expressão when
+
+A expressão when permite testar várias condições e executar diferentes blocos de código conforme o valor de uma variável ou expressão. A cláusula when pode ser usada para executar instruções ou como expressão de atribuição.
+
+Segue um exemplo de uso para executar instruções:
+
+val dia = 3
+
+when (dia) {
+    1 -> println("Segunda-feira")
+    2 -> println("Terça-feira")
+    3 -> println("Quarta-feira")
+    4 -> println("Quinta-feira")
+    5 -> println("Sexta-feira")
+    else -> println("Fim de semana")
+}
+Neste exemplo, de acordo com o valor da variável dia, será executada uma instrução diferente.
+
+Segue um exemplo de uso de when como expressão de atribuição:
+
+val numero = -5
+
+val tipo = when {
+    numero > 0 -> "Positivo"
+    numero < 0 -> "Negativo"
+    else -> "Zero"
+}
+
+println(tipo)
+Neste exemplo, de acordo com o valor da variável numero será atribuído um valor diferente para a variável tipo.
+
+Estruturas de repetição
+
+Estruturas de repetição são utilizadas para iterar estruturas mais complexas ou realizar repetição de instruções, reduzindo a quantidade de código a ser escrito.
+
+Laço for
+
+Um laço for é conhecido também como laço finito, ou seja, permite executar instruções em um número limitado de vezes. Para a definição do número de repetições é possível utilizar a notação de range (intervalo) ou iterar um objeto que acumule vários elementos.
+
+// Loop simples de 1 até 5 (inclusive)
+for (i in 1..5) {
+    println("Contando: $i")
+}
+// Saída: 1 2 3 4 5
+
+// Loop com intervalo decrescente (de 5 até 1)
+for (i in 5 downTo 1) {
+    println("Decrescendo: $i")
+}
+// Saída: 5 4 3 2 1
+
+// Loop com passo personalizado
+for (i in 0..10 step 2) {
+    println("Número par: $i")
+}
+// Saída: 0 2 4 6 8 10
+
+// Loop que exclui o último número (usando until)
+for (i in 1 until 5) {
+    println("Valor: $i")
+}
+// Saída: 1 2 3 4 (o número 5 não é incluído)
+
+// Loop com caracteres (range de Char)
+for (letra in 'a'..'e') {
+    println("Letra: $letra")
+}
+// Saída: a b c d e
+
+// Usando range dentro de uma condição
+val idade = 17
+if (idade in 0..17) {
+    println("Menor de idade")
+} else {
+    println("Maior de idade")
+}
+// Saída: Menor de idade
+Para iterar um objeto que acumule vários elementos, como um array, deve-se declarar uma variável que vai receber a referência para cada elemento, a qual será usada dentro do laço. Segue um exemplo:
+
+// Criando um IntArray com 5 números
+val numeros = intArrayOf(10, 20, 30, 40, 50)
+
+// 1️⃣ - Iterando diretamente pelos valores
+println("Iterando pelos valores:")
+for (n in numeros) {
+    println("Valor: $n")
+}
+
+// Saída:
+// Valor: 10
+// Valor: 20
+// Valor: 30
+// Valor: 40
+// Valor: 50
+Vale destacar aqui a forma de interpolar o valor de uma variável com uma string. Isso ocorre na linha 7 do código de exemplo. Para interpolar a variável basta usar o símbolo de $ a frente do nome da variável.
+
+Laço while
+
+Um laço while (e sua variação do-while) são ditos laços infinitos, pois podem ser executados indefinidamente até que uma determinada condição indique seu término.
+
+var contador = 1
+
+while (contador <= 5) {
+    println("Número: $contador")
+    contador++  // incrementa o valor a cada repetição
+}
+
+println("Fim do laço!")
+Nesse exemplo, a condição de saída do laço está entre parênteses na linha 3. Ou seja, o laço será executado enquanto o valor da variável contador por menor ou igual a 5.
+
+Uma forma comum de usar while é criar um laço infinito e, ao encontrar um critério de parada, quebrar o laço usando o comando break. Segue um exemplo:
+
+var contador = 0
+
+while (true) {  // laço infinito
+    contador++
+    println("Contando... $contador")
+
+    // Condição de parada
+    if (contador == 5) {
+        println("Condição atingida! Saindo do loop.")
+        break  // interrompe o laço
+    }
+}
+
+println("Fim do programa.")
+Neste exemplo, o comando break vai interromper a execução do laço while desviando a execução da aplicação para a linha 13.
+
+É importante tomar cuidado com este uso de while, uma vez que, caso não tenha um critério de parada válido, o laço pode executar indefinidamente, se tornando um laço infinito. 
+
+Curiosidade
+Quer saber mais sobre a linguagem Kotlin? Acompanhe três curiosidades com links de leitura complementar: 
+1. Kotlin nasceu para resolver os limites do Java 
+
+O Kotlin foi criado pela empresa JetBrains, a mesma responsável por IDEs como o IntelliJ IDEA e o PyCharm.
+ Ele surgiu da necessidade de oferecer uma linguagem mais moderna, concisa e segura que o Java, sem renunciar à compatibilidade total com ele.
+
+Essa compatibilidade permite a códigos Kotlin e Java conviverem em um mesmo projeto, facilitando a migração e acelerando o desenvolvimento de aplicativos Android. 
+
+2. O nome “Kotlin” vem de uma ilha 
+
+Assim como o Java, que recebeu o nome de uma ilha na Indonésia, o Kotlin também tem origem geográfica.
+A linguagem foi batizada em homenagem à Ilha de Kotlin, localizada na Rússia, próxima a São Petersburgo — cidade onde está a sede da JetBrains.
+
+A escolha do nome foi uma homenagem ao país de origem dos criadores da linguagem. 
+
+3. Kotlin é 100% open source 
+
+Desde o seu lançamento, o Kotlin é um projeto open source, ou seja, seu código é aberto e mantido de forma colaborativa por uma comunidade global de desenvolvedores.
+
+O Google participa ativamente dessa comunidade, contribuindo para o desenvolvimento contínuo da linguagem e garantindo sua presença como tecnologia oficial para Android.
+
+Esse modelo aberto incentiva a inovação e dá liberdade para que qualquer pessoa explore, estude ou contribua para o aprimoramento do Kotlin.
+
+Reflexão
+Nesta semana conversamos sobre a linguagem Kotlin. Antes de finalizar seus estudos, propomos que faça uma pausa para responder algumas questões. Acompanhe!
+1. O que a linguagem Kotlin tem de diferente em relação a outras linguagens de programação que eu já aprendi neste curso?
+
+2. Qual é a melhor forma de aprender uma nova linguagem de programação?
+
+3. Como o uso de uma linguagem moderna, como o Kotlin, pode influenciar a forma como eu penso e resolvo problemas de programação?
+
+Sugestões de respostas!
+
+Ligando conceitos  
+Durante muito tempo, o desenvolvimento Android foi feito usando a linguagem Java. Com a criação e adoção da linguagem Kotlin, o desenvolvimento mobile para Android passou a contar com uma linguagem concisa, moderna e segura. Assim como ocorre no processo de aprendizagem de qualquer linguagem de programação, é importante identificar os elementos comuns da lógica computacional na linguagem Kotlin e conhecer como estes elementos são utilizados. Embora esses conceitos sejam análogos aos de outras linguagens de programação, Kotlin apresenta particularidades que devem ser tratadas com especial atenção por você.
+
+Referências
+ANDROID DEVELOPERS. Disponível em: https://developer.android.com/?hl=pt-br. Acesso em: 23 abr. 2026.
+
+JETBRAINS. Kotlin Programming Language. Disponível em: https://kotlinlang.org/. Acesso em: 23 abr. 2026. 
+
+© PUCPR - Todos os direitos reservados.
+
+ | Privacidade e Proteção de Dados
