@@ -1,0 +1,35 @@
+# Built artifacts
+bin/
+gen/
+out/
+build/
+app/build/
+
+# Gradle files
+.gradle/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log files
+*.log
+
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+.navigation/
+
+# Device/Emulator files
+captures/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Temporary/Backup files
+*.bak
+*~
+gradle-temp/
