@@ -1,0 +1,8 @@
+{
+  "track_id": "listacompras_20260620",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-06-20T20:35:00Z",
+  "updated_at": "2026-06-20T20:35:00Z",
+  "description": "Implementação completa do App Lista de Compras - CRUD com Room, MVVM, Material Design 3"
+}
