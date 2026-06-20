@@ -1,0 +1,99 @@
+Critério 1
+25% da nota total
+Autônomo (90% a 100%)
+Demonstra domínio dos componentes de interface do Android, utilizando corretamente RecyclerView e estrutura de telas coerente com a arquitetura móvel proposta.
+2,5
+pontos
+
+Capaz (70% a 89%)
+Identifica e utiliza os principais componentes de interface, com pequenas limitações de organização ou integração.
+2,22
+pontos
+
+Aprendiz (40% a 69%)
+Reconhece os componentes, mas apresenta dificuldades na aplicação correta ou integração entre eles.
+1,72
+pontos
+
+Iniciante (1% a 39%)
+Uso inadequado ou confuso dos componentes de interface e da arquitetura móvel.
+0,98
+pontos
+
+Anulação (0%)
+Entrega não atingiu critérios mínimos para avaliação.
+
+Critério 2
+25% da nota total
+Autônomo (90% a 100%)
+Utiliza a linguagem Kotlin de forma consistente, explorando sua sintaxe moderna e recursos próprios do ecossistema Android.
+2,5
+pontos
+
+Capaz (70% a 89%)
+Utiliza Kotlin corretamente, com pequenas limitações no aproveitamento de seus recursos.
+2,22
+pontos
+
+Aprendiz (40% a 69%)
+Utiliza Kotlin de forma básica, com práticas pouco idiomáticas ou redundantes.
+1,72
+pontos
+
+Iniciante (1% a 39%)
+Uso inadequado da linguagem ou dificuldade significativa de aplicação.
+0,98
+pontos
+
+Anulação (0%)
+Entrega não atingiu critérios mínimos para avaliação.
+
+Critério 3
+25% da nota total
+Autônomo (90% a 100%)
+Resolve adequadamente os problemas de lógica do CRUD, com código claro, organizado e funcional.
+2,5
+pontos
+
+Capaz (70% a 89%)
+Soluciona os problemas propostos, com pequenas falhas de lógica ou organização.
+2,22
+pontos
+
+Aprendiz (40% a 69%)
+Apresenta soluções parciais ou com lógica pouco eficiente.
+1,72
+pontos
+
+Iniciante (1% a 39%)
+Lógica inadequada ou inconsistências que comprometem o funcionamento.
+0,98
+pontos
+
+Anulação (0%)
+Entrega não atingiu critérios mínimos para avaliação.
+
+Critério 4
+25% da nota total
+Autônomo (90% a 100%)
+Codifica interfaces claras, funcionais e alinhadas às diretrizes visuais e de usabilidade do Android.
+2,5
+pontos
+
+Capaz (70% a 89%)
+Interfaces adequadas, com pequenos problemas de usabilidade ou organização visual.
+2,22
+pontos
+
+Aprendiz (40% a 69%)
+Interfaces simples ou pouco intuitivas, com limitações no uso de componentes.
+1,72
+pontos
+
+Iniciante (1% a 39%)
+Interfaces confusas, incompletas ou fora das diretrizes.
+0,98
+pontos
+
+Anulação (0%)
+Entrega não atingiu critérios mínimos para avaliação.

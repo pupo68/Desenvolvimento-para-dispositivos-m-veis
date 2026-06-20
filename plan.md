@@ -4,7 +4,7 @@ Este arquivo é a fonte de verdade para o progresso do projeto. Cada tarefa segu
 
 ## Fase 1: Setup do Projeto e Modelo de Domínio
 - [x] Configurar os arquivos base do Gradle Kotlin DSL (settings, build.gradle, gradle.properties) e estrutura de diretórios do app (aaffb72)
-- [ ] Criar classe de modelo `ItemCompra.kt` com TDD (failing test em `ItemCompraTest.kt` -> implementação -> passing test)
+- [~] Criar classe de modelo `ItemCompra.kt` com TDD (failing test em `ItemCompraTest.kt` -> implementação -> passing test)
 
 ## Fase 2: Camada de Dados com Room
 - [ ] Configurar Room Database (`ItemCompraDao.kt`, `AppDatabase.kt`, `ComprasRepository.kt`) com TDD (`ComprasRepositoryTest.kt`)
