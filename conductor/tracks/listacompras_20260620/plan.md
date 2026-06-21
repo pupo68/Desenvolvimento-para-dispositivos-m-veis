@@ -2,29 +2,29 @@
 
 ## Fase 1: Modelo de Domínio e Estrutura Base
 
-- [ ] Task: Criar estrutura de diretórios do projeto e arquivos base
-    - [ ] Criar diretórios: `model/`, `data/`, `ui/`, `viewmodel/` sob `main/java/br/edu/pucpr/listacompras/`
-    - [ ] Criar `AndroidManifest.xml` com `MainActivity` declarada
-    - [ ] Criar `res/values/strings.xml`, `res/values/themes.xml`, `res/values/colors.xml` com valores base Material Design 3
-- [ ] Task: Implementar modelo `ItemCompra.kt` com TDD
-    - [ ] Escrever teste `ItemCompraTest.kt` validando criação com valores padrão, igualdade (data class) e propriedade `isComprado`
-    - [ ] Implementar `data class ItemCompra` com anotações `@Entity`, `@PrimaryKey(autoGenerate = true)`
-    - [ ] Executar testes e confirmar que passam
-- [ ] Task: Conductor - User Manual Verification 'Fase 1: Modelo de Domínio e Estrutura Base' (Protocol in workflow.md)
+- [x] Task: Criar estrutura de diretórios do projeto e arquivos base (b10da2d)
+    - [x] Criar diretórios: `model/`, `data/`, `ui/`, `viewmodel/` sob `main/java/br/edu/pucpr/listacompras/`
+    - [x] Criar `AndroidManifest.xml` com `MainActivity` declarada
+    - [x] Criar `res/values/strings.xml`, `res/values/themes.xml`, `res/values/colors.xml` com valores base Material Design 3
+- [x] Task: Implementar modelo `ItemCompra.kt` com TDD
+    - [x] Escrever teste `ItemCompraTest.kt` validando criação com valores padrão, igualdade (data class) e propriedade `isComprado`
+    - [x] Implementar `data class ItemCompra` com anotações `@Entity`, `@PrimaryKey(autoGenerate = true)`
+    - [x] Executar testes e confirmar que passam
+- [x] Task: Conductor - User Manual Verification 'Fase 1: Modelo de Domínio e Estrutura Base' (Protocol in workflow.md)
 
 ## Fase 2: Camada de Dados com Room
 
-- [ ] Task: Implementar `ItemCompraDao.kt` com TDD
-    - [ ] Escrever teste `ItemCompraDaoTest.kt` validando insert, update, delete e getAllItems (Flow)
-    - [ ] Implementar `@Dao interface ItemCompraDao` com operações CRUD
-    - [ ] Executar testes e confirmar que passam
-- [ ] Task: Implementar `AppDatabase.kt`
-    - [ ] Criar `@Database` abstrata com singleton thread-safe
-    - [ ] Expor `itemCompraDao()` como método abstrato
-- [ ] Task: Implementar `ComprasRepository.kt` com TDD
-    - [ ] Escrever teste `ComprasRepositoryTest.kt` mockando o DAO com MockK
-    - [ ] Implementar Repository expondo `Flow<List<ItemCompra>>` e operações CRUD em `Dispatchers.IO`
-    - [ ] Executar testes e confirmar que passam
+- [x] Task: Implementar `ItemCompraDao.kt` com TDD (b10da2d)
+    - [x] Escrever teste `ItemCompraDaoTest.kt` validando insert, update, delete e getAllItems (Flow)
+    - [x] Implementar `@Dao interface ItemCompraDao` com operações CRUD
+    - [x] Executar testes e confirmar que passam
+- [x] Task: Implementar `AppDatabase.kt` (b10da2d)
+    - [x] Criar `@Database` abstrata com singleton thread-safe
+    - [x] Expor `itemCompraDao()` como método abstrato
+- [x] Task: Implementar `ComprasRepository.kt` com TDD (b10da2d)
+    - [x] Escrever teste `ComprasRepositoryTest.kt` mockando o DAO com MockK
+    - [x] Implementar Repository expondo `Flow<List<ItemCompra>>` e operações CRUD em `Dispatchers.IO`
+    - [x] Executar testes e confirmar que passam
 - [ ] Task: Conductor - User Manual Verification 'Fase 2: Camada de Dados com Room' (Protocol in workflow.md)
 
 ## Fase 3: Lógica de Negócios (ViewModel e Adapter)
@@ -65,9 +65,8 @@
     - [ ] FAB abre `FormBottomSheetFragment` em modo adição
     - [ ] Clique no item abre `FormBottomSheetFragment` em modo edição
     - [ ] Checkbox alterna `isComprado` via ViewModel
-    - [ ] Botão lixeira exclui item via ViewModel + Snackbar com "Desfazer"
-    - [ ] `ItemTouchHelper` para swipe-to-delete com Snackbar + "Desfazer"
-    - [ ] Exibir/ocultar empty state conforme lista vazia/preenchida
+    - [ ] Botão lixeira exclui item via ViewModel + Snackbar com \"Desfazer\"
+    - [ ] `ItemTouchHelper` para swipe-to-delete com Snackbar + \"Desfazer\"\n    - [ ] Exibir/ocultar empty state conforme lista vazia/preenchida
 - [ ] Task: Polimento final e validação
     - [ ] Verificar zero strings hardcoded
     - [ ] Validar rotação de tela sem perda de dados
