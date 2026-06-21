@@ -14,14 +14,14 @@
 
 ## Fase 2: Camada de Dados com Room
 
-- [x] Task: Implementar `ItemCompraDao.kt` com TDD (b10da2d)
+- [x] Task: Implementar `ItemCompraDao.kt` com TDD (209167b)
     - [x] Escrever teste `ItemCompraDaoTest.kt` validando insert, update, delete e getAllItems (Flow)
     - [x] Implementar `@Dao interface ItemCompraDao` com operações CRUD
     - [x] Executar testes e confirmar que passam
-- [x] Task: Implementar `AppDatabase.kt` (b10da2d)
+- [x] Task: Implementar `AppDatabase.kt` (209167b)
     - [x] Criar `@Database` abstrata com singleton thread-safe
     - [x] Expor `itemCompraDao()` como método abstrato
-- [x] Task: Implementar `ComprasRepository.kt` com TDD (b10da2d)
+- [x] Task: Implementar `ComprasRepository.kt` com TDD (209167b)
     - [x] Escrever teste `ComprasRepositoryTest.kt` mockando o DAO com MockK
     - [x] Implementar Repository expondo `Flow<List<ItemCompra>>` e operações CRUD em `Dispatchers.IO`
     - [x] Executar testes e confirmar que passam
@@ -32,7 +32,7 @@
 - [ ] Task: Implementar `ComprasViewModel.kt` com TDD
     - [ ] Escrever teste `ComprasViewModelTest.kt` mockando Repository com MockK
     - [ ] Validar: carregamento da lista, adição, edição, deleção, toggle de `isComprado`
-    - [ ] Implementar ViewModel com `viewModelScope`, expondo `StateFlow<List<ItemCompra>>`
+    - [ ] Implementar ViewModel with `viewModelScope`, expondo `StateFlow<List<ItemCompra>>`
     - [ ] Implementar ordenação: não-comprados primeiro, comprados ao final
     - [ ] Executar testes e confirmar que passam
 - [ ] Task: Implementar `ComprasViewModelFactory.kt`
