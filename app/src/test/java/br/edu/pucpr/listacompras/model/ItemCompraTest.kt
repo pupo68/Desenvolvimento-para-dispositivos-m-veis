@@ -1,5 +1,7 @@
 package br.edu.pucpr.listacompras.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -28,7 +30,7 @@ class ItemCompraTest {
             isComprado = false
         )
         val itemComprado = item.copy(isComprado = true)
-        
+
         assertTrue(itemComprado.isComprado)
         assertEquals(item.id, itemComprado.id)
         assertEquals(item.nome, itemComprado.nome)
@@ -43,7 +45,7 @@ class ItemCompraTest {
             quantidade = "1 litro"
         )
         val itemEditado = item.copy(nome = "Óleo de Soja", quantidade = "2 litros")
-        
+
         assertEquals("Óleo de Soja", itemEditado.nome)
         assertEquals("2 litros", itemEditado.quantidade)
         assertEquals(item.id, itemEditado.id)
