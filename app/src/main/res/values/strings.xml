@@ -1,4 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Lista de Compras</string>
+    
+    -- Empty State
+    <string name="empty_state_title">Sua lista está vazia</string>
+    <string name="empty_state_subtitle">Comece adicionando seus primeiros itens</string>
+    <string name="empty_state_button_text">Adicionar Item</string>
+    
+    -- Form Fields
+    <string name="item_name_hint">Nome do item</string>
+    <string name="item_quantity_hint">Quantidade</string>
+    <string name="item_name_error">O nome é obrigatório</string>
+    <string name="item_quantity_error">A quantidade é obrigatória</string>
+    
+    -- Buttons
+    <string name="button_add">Adicionar</string>
+    <string name="button_save">Salvar</string>
+    <string name="button_delete">Excluir</string>
+    <string name="button_cancel">Cancelar</string>
+    
+    -- Snackbar Messages
+    <string name="snackbar_item_added">Item adicionado</string>
+    <string name="snackbar_item_updated">Item atualizado</string>
+    <string name="snackbar_item_deleted">Item excluído</string>
+    <string name="snackbar_undo">Desfazer</string>
+    
+    -- Dialog Titles
+    <string name="dialog_title_add_item">Adicionar Item</string>
+    <string name="dialog_title_edit_item">Editar Item</string>
+    <string name="dialog_title_confirm_delete">Confirmar exclusão</string>
+    <string name="dialog_message_confirm_delete">Tem certeza que deseja excluir este item?</string>
+    
+    -- Other
+    <string name="action_mark_as_purchased">Marcar como comprado</string>
+    <string name="action_mark_as_not_purchased">Marcar como não comprado</string>
 </resources>
