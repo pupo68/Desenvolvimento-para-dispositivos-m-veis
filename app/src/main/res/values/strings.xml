@@ -2,36 +2,74 @@
 <resources>
     <string name="app_name">Lista de Compras</string>
     
-    -- Empty State
+<!-- Empty State -->
     <string name="empty_state_title">Sua lista está vazia</string>
     <string name="empty_state_subtitle">Comece adicionando seus primeiros itens</string>
     <string name="empty_state_button_text">Adicionar Item</string>
     
-    -- Form Fields
+<!-- Form Fields -->
     <string name="item_name_hint">Nome do item</string>
     <string name="item_quantity_hint">Quantidade</string>
+    <string name="item_category_hint">Categoria</string>
     <string name="item_name_error">O nome é obrigatório</string>
     <string name="item_quantity_error">A quantidade é obrigatória</string>
+    <string name="item_category_content_description">Selecione a categoria do item</string>
     
-    -- Buttons
+    <!-- Categories -->
+    <string-array name="categorias_array">
+        <item>Alimentos</item>
+        <item>Bebidas</item>
+        <item>Limpeza</item>
+        <item>Higiene</item>
+        <item>Outros</item>
+    </string-array>
+    
+<!-- Buttons -->
     <string name="button_add">Adicionar</string>
     <string name="button_save">Salvar</string>
     <string name="button_delete">Excluir</string>
     <string name="button_cancel">Cancelar</string>
     
-    -- Snackbar Messages
+<!-- Snackbar Messages -->
     <string name="snackbar_item_added">Item adicionado</string>
     <string name="snackbar_item_updated">Item atualizado</string>
     <string name="snackbar_item_deleted">Item excluído</string>
     <string name="snackbar_undo">Desfazer</string>
     
-    -- Dialog Titles
+<!-- Dialog Titles -->
     <string name="dialog_title_add_item">Adicionar Item</string>
     <string name="dialog_title_edit_item">Editar Item</string>
     <string name="dialog_title_confirm_delete">Confirmar exclusão</string>
     <string name="dialog_message_confirm_delete">Tem certeza que deseja excluir este item?</string>
     
-    -- Other
+<!-- Other -->
     <string name="action_mark_as_purchased">Marcar como comprado</string>
     <string name="action_mark_as_not_purchased">Marcar como não comprado</string>
+
+<!-- Accessibility -->
+    <string name="fab_add_content_description">Adicionar novo item à lista</string>
+    <string name="checkbox_item_content_description">Marcar %1$s como comprado</string>
+    <string name="checkbox_item_checked_content_description">Desmarcar %1$s, item comprado</string>
+    <string name="delete_item_content_description">Excluir item %1$s</string>
+    <string name="item_content_description">%1$s, quantidade %2$s, %3$s</string>
+    <string name="item_status_comprado">comprado</string>
+    <string name="item_status_pendente">pendente</string>
+
+<!-- Share -->
+    <string name="share_subject">Minha Lista de Compras</string>
+    <string name="share_chooser_title">Compartilhar lista via…</string>
+    <string name="snackbar_empty_list">A lista está vazia, nada para compartilhar</string>
+    <string name="button_share_content_description">Compartilhar lista de compras</string>
+
+<!-- Dashboard -->
+    <string name="dashboard_title">Resumo da Lista</string>
+    <string name="dashboard_total">Total</string>
+    <string name="dashboard_comprados">Comprados</string>
+    <string name="dashboard_pendentes">Pendentes</string>
+    <string name="dashboard_progress_label">%1$d%% concluído</string>
+    <string name="dashboard_by_category">Por Categoria</string>
+    <string name="dashboard_no_categories">Nenhum item ainda</string>
+    <string name="button_close">Fechar</string>
+    <string name="button_dashboard_content_description">Ver resumo da lista</string>
+    <string name="dashboard_accessibility_summary">Resumo: %1$d itens no total, %2$d comprados, %3$d pendentes</string>
 </resources>

@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ArrayAdapter
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import br.edu.pucpr.listacompras.R
 import br.edu.pucpr.listacompras.databinding.DialogItemFormBinding
+import br.edu.pucpr.listacompras.model.Categoria
 import br.edu.pucpr.listacompras.model.ItemCompra
 
 /**
  * BottomSheetDialogFragment for adding/editing items
+ * Includes category selection via ExposedDropdown menu
  */
 class ItemFormDialog : BottomSheetDialogFragment() {
 
@@ -28,12 +31,9 @@ class ItemFormDialog : BottomSheetDialogFragment() {
         private const val ARG_ITEM_NOME = "arg_item_nome"
         private const val ARG_ITEM_QUANTIDADE = "arg_item_quantidade"
         private const val ARG_ITEM_COMPRADO = "arg_item_comprado"
-        private const val ARG_ITEM = "arg_item"
+        private const val ARG_ITEM_CATEGORIA = "arg_item_categoria"
         private const val ARG_IS_EDIT_MODE = "arg_is_edit_mode"
 
-        /**
-         * Factory method to create new instance for adding item
-         */
         fun newInstanceAdd(): ItemFormDialog {
             return ItemFormDialog().apply {
                 arguments = Bundle().apply {
@@ -42,9 +42,6 @@ class ItemFormDialog : BottomSheetDialogFragment() {
             }
         }
 
-        /**
-         * Factory method to create new instance for editing item
-         */
         fun newInstanceEdit(item: ItemCompra): ItemFormDialog {
             return ItemFormDialog().apply {
                 arguments = Bundle().apply {
@@ -52,6 +49,7 @@ class ItemFormDialog : BottomSheetDialogFragment() {
                     putString(ARG_ITEM_NOME, item.nome)
                     putString(ARG_ITEM_QUANTIDADE, item.quantidade)
                     putBoolean(ARG_ITEM_COMPRADO, item.isComprado)
+                    putString(ARG_ITEM_CATEGORIA, item.categoria)
                     putBoolean(ARG_IS_EDIT_MODE, true)
                 }
             }
@@ -59,7 +57,7 @@ class ItemFormDialog : BottomSheetDialogFragment() {
     }
 
     interface OnItemSavedListener {
-        fun onItemSaved(nome: String, quantidade: String, itemToEdit: ItemCompra?)
+        fun onItemSaved(nome: String, quantidade: String, categoria: String, itemToEdit: ItemCompra?)
     }
 
     private var listener: OnItemSavedListener? = null
@@ -71,13 +69,14 @@ class ItemFormDialog : BottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            isEditMode = it.getBoolean(ItemFormDialog.ARG_IS_EDIT_MODE, false)
+            isEditMode = it.getBoolean(ARG_IS_EDIT_MODE, false)
             item = if (isEditMode) {
                 ItemCompra(
-                    id = it.getInt(ItemFormDialog.ARG_ITEM_ID, 0),
-                    nome = it.getString(ItemFormDialog.ARG_ITEM_NOME) ?: "",
-                    quantidade = it.getString(ItemFormDialog.ARG_ITEM_QUANTIDADE) ?: "",
-                    isComprado = it.getBoolean(ItemFormDialog.ARG_ITEM_COMPRADO, false)
+                    id = it.getInt(ARG_ITEM_ID, 0),
+                    nome = it.getString(ARG_ITEM_NOME) ?: "",
+                    quantidade = it.getString(ARG_ITEM_QUANTIDADE) ?: "",
+                    isComprado = it.getBoolean(ARG_ITEM_COMPRADO, false),
+                    categoria = it.getString(ARG_ITEM_CATEGORIA) ?: Categoria.OUTROS.label
                 )
             } else {
                 ItemCompra(nome = "", quantidade = "")
@@ -104,22 +103,43 @@ class ItemFormDialog : BottomSheetDialogFragment() {
             getString(R.string.dialog_title_add_item)
         }
 
+        // Setup category dropdown
+        val categorias = Categoria.labels
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categorias)
+        binding.spinnerCategoria.setAdapter(adapter)
+
         // Pre-fill fields in edit mode
         if (isEditMode) {
             binding.editNome.setText(item.nome)
             binding.editQuantidade.setText(item.quantidade)
+            binding.spinnerCategoria.setText(item.categoria, false)
+        } else {
+            // Default to "Outros" for new items
+            binding.spinnerCategoria.setText(Categoria.OUTROS.label, false)
         }
 
         // Validation - enable/disable save button
         setupValidation()
 
+        // Accessibility: actionDone on quantidade submits form
+        binding.editQuantidade.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_NEXT) {
+                // Move focus to category dropdown
+                binding.spinnerCategoria.requestFocus()
+                true
+            } else {
+                false
+            }
+        }
+
         // Save button
         binding.buttonSalvar.setOnClickListener {
             val nome = binding.editNome.text?.toString()?.trim() ?: ""
             val quantidade = binding.editQuantidade.text?.toString()?.trim() ?: ""
+            val categoria = binding.spinnerCategoria.text?.toString()?.trim() ?: Categoria.OUTROS.label
 
             if (validateFields(nome, quantidade)) {
-                listener?.onItemSaved(nome, quantidade, if (isEditMode) item else null)
+                listener?.onItemSaved(nome, quantidade, categoria, if (isEditMode) item else null)
                 dismiss()
             }
         }

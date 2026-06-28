@@ -10,6 +10,7 @@
     app:cardCornerRadius="12dp"
     app:cardElevation="2dp"
     app:strokeWidth="0dp"
+    android:importantForAccessibility="noHideDescendants"
     app:cardBackgroundColor="?attr/colorSurface">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,11 +57,27 @@
             android:layout_marginEnd="8dp"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             android:textColor="?attr/colorOnSurfaceVariant"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/textCategoria"
             app:layout_constraintEnd_toStartOf="@id/buttonDelete"
             app:layout_constraintStart_toEndOf="@id/checkboxComprado"
             app:layout_constraintTop_toBottomOf="@id/textNome"
             tools:text="5 kg" />
+
+        <!-- Categoria -->
+        <TextView
+            android:id="@+id/textCategoria"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="?attr/colorOutline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/buttonDelete"
+            app:layout_constraintStart_toEndOf="@id/checkboxComprado"
+            app:layout_constraintTop_toBottomOf="@id/textQuantidade"
+            tools:text="Alimentos" />
 
         <!-- Botão de excluir -->
         <ImageButton

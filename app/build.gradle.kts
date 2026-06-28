@@ -5,8 +5,19 @@ plugins {
     id("jacoco")
 }
 
+// Use a recent JaCoCo version compatible with Java 17
+jacoco {
+    toolVersion = "0.8.10"
+}
+
+
 android {
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
     namespace = "br.edu.pucpr.listacompras"
+
+
     compileSdk = 36
 
     defaultConfig {
@@ -30,7 +41,7 @@ android {
 
     buildTypes {
         debug {
-            isTestCoverageEnabled = true
+            enableUnitTestCoverage = true
             lint {
                 abortOnError = false
                 checkReleaseBuilds = false
@@ -114,12 +125,12 @@ tasks.withType<Test> {
     }
 }
 
-// Temporarily disable unit tests due to Windows classpath issues
-// To run tests, use: ./gradlew :app:testDebugUnitTest -PenableTests
+
+// Enable unit tests by default. They can be disabled with -PdisableTests if needed.
 gradle.taskGraph.whenReady {
     allTasks.forEach { task ->
         if (task.name.contains("UnitTest") && task !is JacocoReport) {
-            if (!project.hasProperty("enableTests")) {
+            if (project.hasProperty("disableTests")) {
                 task.enabled = false
             }
         }
@@ -170,6 +181,12 @@ dependencies {
     testImplementation("androidx.test.ext:junit-ktx:1.1.5")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.5.1")
+    androidTestImplementation("androidx.test:core:1.5.0")
+    androidTestImplementation("androidx.test:core:1.5.0")
+    androidTestImplementation("androidx.test:core-ktx:1.5.0")
     // Kotlin test integration for JUnit4
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.22")
     // Note: kaptTest/kaptAndroidTest removed to avoid kapt stubs generation issues

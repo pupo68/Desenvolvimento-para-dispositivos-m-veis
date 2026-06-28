@@ -71,13 +71,40 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_compra" />
 
+    <!-- Share button - bottom left -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/button_share_content_description"
+        android:src="@drawable/ic_share"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="?attr/colorOnPrimaryContainer" />
+
+    <!-- Dashboard button - bottom, left of FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonDashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="12dp"
+        android:contentDescription="@string/button_dashboard_content_description"
+        android:src="@drawable/ic_dashboard"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/buttonShare"
+        app:tint="?attr/colorOnPrimaryContainer" />
+
     <!-- FloatingActionButton - adicionar novo item -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:contentDescription="@string/button_add"
+        android:contentDescription="@string/fab_add_content_description"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -10,24 +10,38 @@ import kotlinx.coroutines.flow.Flow
 
 /**
  * DAO for ItemCompra entity
- * Implements CRUD operations as per SDD section 4.1.2 and spec.md section 2.2
+ * Implements CRUD operations and category-based queries
  */
 @Dao
 interface ItemCompraDao {
 
-    // TODO: Implement insert method
     @Insert
     suspend fun insertItem(item: ItemCompra): Long
 
-    // TODO: Implement update method
     @Update
     suspend fun updateItem(item: ItemCompra): Int
 
-    // TODO: Implement delete method
     @Delete
     suspend fun deleteItem(item: ItemCompra): Int
 
-    // TODO: Implement getAllItems method with ordering (not-comprados first)
     @Query("SELECT * FROM item_compra ORDER BY isComprado ASC, nome ASC")
     fun getAllItems(): Flow<List<ItemCompra>>
+
+    @Query("SELECT * FROM item_compra WHERE categoria = :categoria ORDER BY isComprado ASC, nome ASC")
+    fun getItemsByCategoria(categoria: String): Flow<List<ItemCompra>>
+
+    @Query("SELECT COUNT(*) FROM item_compra")
+    fun getTotalCount(): Flow<Int>
+
+    @Query("SELECT COUNT(*) FROM item_compra WHERE isComprado = 1")
+    fun getCompradoCount(): Flow<Int>
+
+    @Query("SELECT COUNT(*) FROM item_compra WHERE isComprado = 0")
+    fun getPendenteCount(): Flow<Int>
+
+    @Query("SELECT categoria, COUNT(*) as count FROM item_compra GROUP BY categoria")
+    fun getCountByCategoria(): Flow<List<CategoriaCount>>
+
+    /** Result row for category count query */
+    data class CategoriaCount(val categoria: String, val count: Int)
 }

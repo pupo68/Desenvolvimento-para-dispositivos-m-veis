@@ -1,7 +1,7 @@
 package br.edu.pucpr.listacompras.ui
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
@@ -12,12 +12,18 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import br.edu.pucpr.listacompras.R
 import br.edu.pucpr.listacompras.databinding.ActivityMainBinding
+import br.edu.pucpr.listacompras.db.ItemCompraDao
+import br.edu.pucpr.listacompras.model.ItemCompra
 import br.edu.pucpr.listacompras.repository.ComprasRepository
+import br.edu.pucpr.listacompras.util.gone
+import br.edu.pucpr.listacompras.util.visible
+import br.edu.pucpr.listacompras.util.visibleIf
+import br.edu.pucpr.listacompras.util.toShareText
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 /**
- * Main Activity - displays the shopping list
+ * Main Activity - displays the shopping list with category, share, and dashboard support
  */
 class MainActivity : AppCompatActivity(), ItemFormDialog.OnItemSavedListener {
 
@@ -25,8 +31,7 @@ class MainActivity : AppCompatActivity(), ItemFormDialog.OnItemSavedListener {
     private lateinit var viewModel: ComprasViewModel
     private lateinit var adapter: ComprasAdapter
 
-    // Item being deleted (for undo)
-    private var pendingDeleteItem: br.edu.pucpr.listacompras.model.ItemCompra? = null
+    private var pendingDeleteItem: ItemCompra? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +43,8 @@ class MainActivity : AppCompatActivity(), ItemFormDialog.OnItemSavedListener {
         setupFab()
         setupEmptyState()
         setupSwipeToDelete()
+        setupShareButton()
+        setupDashboardButton()
         observeViewModel()
     }
 
@@ -66,15 +73,13 @@ class MainActivity : AppCompatActivity(), ItemFormDialog.OnItemSavedListener {
         binding.fabAddItem.setOnClickListener {
             openAddDialog()
         }
-
-        // Also set click on empty state button
         binding.emptyStateButton.setOnClickListener {
             openAddDialog()
         }
     }
 
     private fun setupEmptyState() {
-        // Empty state visibility is handled in observeViewModel() to avoid multiple collectors
+        // Empty state visibility is handled in observeViewModel()
     }
 
     private fun setupSwipeToDelete() {
@@ -95,15 +100,70 @@ class MainActivity : AppCompatActivity(), ItemFormDialog.OnItemSavedListener {
         ItemTouchHelper(swipeHandler).attachToRecyclerView(binding.recyclerView)
     }
 
+    private fun setupShareButton() {
+        binding.buttonShare.setOnClickListener {
+            shareList()
+        }
+    }
+
+    private fun setupDashboardButton() {
+        binding.buttonDashboard.setOnClickListener {
+            openDashboard()
+        }
+    }
+
+    private fun openDashboard() {
+        val total = viewModel.totalCount.value
+        val comprado = viewModel.compradoCount.value
+        val pendente = viewModel.pendenteCount.value
+        val categories = viewModel.countByCategoria.value
+
+        val breakdown = categories.joinToString("\n") { cat ->
+            "• ${cat.categoria}: ${cat.count}"
+        }
+
+        val dialog = DashboardDialog.newInstance(total, comprado, pendente, breakdown)
+        dialog.show(supportFragmentManager, "DashboardDialog")
+    }
+
+    private fun shareList() {
+        val items = viewModel.items.value
+        if (items.isNullOrEmpty()) {
+            Snackbar.make(binding.root, R.string.snackbar_empty_list, Snackbar.LENGTH_SHORT).show()
+            return
+        }
+
+        val shareText = items.toShareText()
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, shareText)
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject))
+            type = "text/plain"
+        }
+        startActivity(Intent.createChooser(sendIntent, getString(R.string.share_chooser_title)))
+    }
+
     private fun observeViewModel() {
         lifecycleScope.launchWhenStarted {
             viewModel.items.collectLatest { items ->
                 adapter.submitList(items)
-                // Update empty state visibility
-                val isEmpty = items.isEmpty()
-                binding.emptyStateLayout.visibility = if (isEmpty) View.VISIBLE else View.GONE
-                binding.recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
+                binding.emptyStateLayout.visibleIf(items.isEmpty())
+                binding.recyclerView.visibleIf(items.isNotEmpty())
             }
+        }
+
+        // Collect statistics flows so they stay warm for the dashboard
+        lifecycleScope.launchWhenStarted {
+            viewModel.totalCount.collectLatest { /* collected to keep flow warm */ }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.compradoCount.collectLatest { /* collected to keep flow warm */ }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.pendenteCount.collectLatest { /* collected to keep flow warm */ }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.countByCategoria.collectLatest { /* collected to keep flow warm */ }
         }
 
         viewModel.event.observe(this) { event ->
@@ -127,7 +187,7 @@ class MainActivity : AppCompatActivity(), ItemFormDialog.OnItemSavedListener {
                 showDeleteSnackbar()
             }
             is ComprasViewModel.UiEvent.ItemRestored -> {
-                showSnackbar(R.string.snackbar_item_added) // Re-using "added" message for restore
+                showSnackbar(R.string.snackbar_item_added)
                 pendingDeleteItem = null
             }
         }
@@ -154,13 +214,13 @@ class MainActivity : AppCompatActivity(), ItemFormDialog.OnItemSavedListener {
         dialog.show(supportFragmentManager, "ItemFormDialog")
     }
 
-    private fun openEditDialog(item: br.edu.pucpr.listacompras.model.ItemCompra) {
+    private fun openEditDialog(item: ItemCompra) {
         val dialog = ItemFormDialog.newInstanceEdit(item)
         dialog.setListener(this)
         dialog.show(supportFragmentManager, "ItemFormDialog")
     }
 
-    private fun confirmDelete(item: br.edu.pucpr.listacompras.model.ItemCompra) {
+    private fun confirmDelete(item: ItemCompra) {
         MaterialAlertDialogBuilder(this)
             .setTitle(R.string.dialog_title_confirm_delete)
             .setMessage(R.string.dialog_message_confirm_delete)
@@ -171,11 +231,11 @@ class MainActivity : AppCompatActivity(), ItemFormDialog.OnItemSavedListener {
             .show()
     }
 
-    override fun onItemSaved(nome: String, quantidade: String, itemToEdit: br.edu.pucpr.listacompras.model.ItemCompra?) {
+    override fun onItemSaved(nome: String, quantidade: String, categoria: String, itemToEdit: ItemCompra?) {
         if (itemToEdit != null) {
-            viewModel.updateItem(itemToEdit, nome, quantidade)
+            viewModel.updateItem(itemToEdit, nome, quantidade, categoria)
         } else {
-            viewModel.addItem(nome, quantidade)
+            viewModel.addItem(nome, quantidade, categoria)
         }
     }
 }

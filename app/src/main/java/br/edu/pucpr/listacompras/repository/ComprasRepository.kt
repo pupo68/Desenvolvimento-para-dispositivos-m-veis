@@ -2,35 +2,36 @@ package br.edu.pucpr.listacompras.repository
 
 import br.edu.pucpr.listacompras.db.ItemCompraDao
 import br.edu.pucpr.listacompras.model.ItemCompra
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Repository for managing ItemCompra data
- * Abstracts the data layer from the ViewModel as per SDD section 4.1.4 and spec.md section 2.2
+ * Abstracts the data layer from the ViewModel as per SDD section 4.1.4
  */
 class ComprasRepository(private val dao: ItemCompraDao) {
 
-    // TODO: Implement getAllItems method
     val allItems: Flow<List<ItemCompra>> = dao.getAllItems()
 
-    // TODO: Implement addItem method
+    fun getItemsByCategoria(categoria: String): Flow<List<ItemCompra>> =
+        dao.getItemsByCategoria(categoria)
+
+    val totalCount: Flow<Int> = dao.getTotalCount()
+    val compradoCount: Flow<Int> = dao.getCompradoCount()
+    val pendenteCount: Flow<Int> = dao.getPendenteCount()
+    val countByCategoria: Flow<List<ItemCompraDao.CategoriaCount>> = dao.getCountByCategoria()
+
     suspend fun addItem(item: ItemCompra) {
         dao.insertItem(item)
     }
 
-    // TODO: Implement updateItem method
     suspend fun updateItem(item: ItemCompra) {
         dao.updateItem(item)
     }
 
-    // TODO: Implement deleteItem method
     suspend fun deleteItem(item: ItemCompra) {
         dao.deleteItem(item)
     }
 
-    // TODO: Implement toggleItemStatus method (from spec.md section 2.3 and tdd.md example)
     suspend fun toggleItemStatus(item: ItemCompra) {
         val toggledItem = item.copy(isComprado = !item.isComprado)
         dao.updateItem(toggledItem)

@@ -2,7 +2,6 @@ package br.edu.pucpr.listacompras.ui
 
 import android.graphics.Paint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.edu.pucpr.listacompras.R
 import br.edu.pucpr.listacompras.databinding.ItemCompraBinding
 import br.edu.pucpr.listacompras.model.ItemCompra
+import br.edu.pucpr.listacompras.util.toAccessibilityDescription
 
 /**
  * RecyclerView Adapter for ItemCompra list
@@ -42,7 +42,18 @@ class ComprasAdapter(
             binding.apply {
                 textNome.text = item.nome
                 textQuantidade.text = item.quantidade
+                textCategoria.text = item.categoria
                 checkboxComprado.isChecked = item.isComprado
+
+                // Accessibility: card reads as single unit via noHideDescendants + contentDescription
+                root.contentDescription = item.toAccessibilityDescription()
+
+                // Accessibility: checkbox contentDescription is contextual (not just "checkbox")
+                checkboxComprado.contentDescription = if (item.isComprado) {
+                    itemView.context.getString(R.string.checkbox_item_checked_content_description, item.nome)
+                } else {
+                    itemView.context.getString(R.string.checkbox_item_content_description, item.nome)
+                }
 
                 // Apply strikethrough when item is purchased
                 if (item.isComprado) {
@@ -56,7 +67,6 @@ class ComprasAdapter(
                 // Click listeners
                 root.setOnClickListener { onItemClick(item) }
                 checkboxComprado.setOnCheckedChangeListener { _, isChecked ->
-                    // Only trigger if user interaction (not programmatic)
                     if (item.isComprado != isChecked) {
                         onCheckChanged(item)
                     }
